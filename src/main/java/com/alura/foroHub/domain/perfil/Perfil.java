@@ -18,21 +18,15 @@ public class Perfil {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String nombrePerfil;
 
-    @OneToOne(mappedBy = "perfil")
-    private Usuario usuario;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "nombre_perfil")
+    private NombrePerfil nombrePerfil;
 
-    public Perfil(String nombrePerfil) {
-
+    public Perfil(NombrePerfil nombrePerfil) {
         this.nombrePerfil = nombrePerfil;
     }
 
-    public void actualizarNombrePerfil(String nombrePerfilModificado){
-        if(nombrePerfilModificado != null){
-            this.nombrePerfil = nombrePerfilModificado;
-        }
-    }
 }
 
 

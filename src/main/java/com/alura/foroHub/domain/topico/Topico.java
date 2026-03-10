@@ -47,4 +47,11 @@ public class Topico {
         this.fechaCreacion = LocalDateTime.now();
         this.status = StatusTopico.NO_RESPONDIDO;
     }
+
+    public void actualizarInformacion(String titulo, String mensaje, StatusTopico status, Curso curso) {
+        if (titulo != null) this.titulo = titulo;
+        if (mensaje != null) this.mensaje = mensaje;
+        if (status != null) this.status = status;
+        if (curso != null) this.curso = curso;
+    }
 }

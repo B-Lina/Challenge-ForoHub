@@ -12,38 +12,47 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(of="id")
+@EqualsAndHashCode(of = "id")
 
 public class Usuario {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private Boolean activo;
     private String nombre;
+    @Column(unique = true)
     private String email;
     private String contrasena;
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "perfil_id")
-    private Perfil perfiles ;
+    private Perfil perfil;
 
 
-    public Usuario(DatosUsuario datosUsuario, Perfil perfiles) {
+    public Usuario(DatosRegistroUsuario datosUsuario, Perfil perfil) {
         this.id = null;
+        this.activo = true;
         this.nombre = datosUsuario.nombre();
         this.email = datosUsuario.email();
         this.contrasena = datosUsuario.contrasena();
-        this.perfiles = perfiles;
+        this.perfil = perfil;
     }
 
-    public void actualizarInformacion(DatosActualizacionUsuario datos){
-        if(datos.nombre()!=null){
+    public void actualizarInformacion(DatosActualizacionUsuario datos) {
+        if (datos.nombre() != null) {
             this.nombre = datos.nombre();
         }
-        if(datos.email()!=null){
+        if (datos.email() != null) {
             this.email = datos.email();
         }
-
+    }
+    public void actualizarPerfil(Perfil nuevoPerfil) {
+        if (nuevoPerfil != null) {
+            this.perfil = nuevoPerfil;
+        }
     }
 
+    public void eliminar() {
+        this.activo = false;
+    }
 
 }
-
